@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mm">
+	
+	<resultMap id='mm_map' type="mybatis.MemberVo">
+		<result column="mId"    property="mId"/>
+		<result column="mName"  property="mName"/>
+		<result column="pwd"    property="pwd"/>
+		<result column="rDate"  property="rDate"/>
+		<result column="grade"  property="grade"/>
+	    <collection property="photos"  
+	                javaType="mybatis.MemberPhoto">
+		    <result column="serial"  property="serial"/>
+			<result column="oriFile" property="oriFile"/>
+			<result column="sysFile" property="sysFile"/>
+	    </collection>
+	</resultMap>
+	
+	
+
+
+	<select id='count' parameterType="bean.Page"
+	                   resultType="Integer">
+		select count(*) cnt from member
+		where     mName like '%${findStr}%'
+		or        mId   like '%${findStr}%'
+	</select>	                   
+
+	
+	<select id='select' parameterType="bean.Page" 
+	                    resultMap="mm_map">
+
+		select * from(	
+			select rownum rno, M.* from(
+				select MM.mId mId, mName, grade, 
+				       to_char(MM.rDate, 'rrrr-mm-dd') rDate ,
+				       serial, oriFile, sysFile
+				from member MM  left outer join member_photo MP
+				on   MM.mId = MP.mId
+				where  mName like '%${findStr}%'   
+				or     MM.mId   like '%${findStr}%'
+				order by rDate desc, mName asc)M
+		) where rno between ${startNo} and ${endNo}
+
+	</select>
+	
+	
+	<select id='view' parameterType='String' resultMap='mm_map'>
+		select MM.mId, mName, grade, to_char(MM.rdate, 'rrrr-mm-dd') rDate,
+		       serial, oriFile, sysFile
+		from member MM left outer join member_photo MP
+		on   MM.mId = MP.mId
+		where MM.mId = #{_parameter}
+	</select>
+	
+	<select id='att_list' parameterType='String' resultType='mybatis.MemberPhoto'>
+	   	select serial, mId, orifile, sysfile
+	   	from member_photo
+	   	where mId = #{_parameter}
+	</select>
+	
+	<!-- 본문글 -->
+	<insert id='insert' parameterType='mybatis.MemberVo' >
+		insert into member(mId, mName, pwd, rDate, grade)
+		values(#{mId}, #{mName} ,  #{pwd}, #{rDate}, #{grade})
+	</insert>
+	
+	<insert id='att_insert' parameterType='mybatis.MemberPhoto'>
+		insert into member_photo(serial, mId, orifile, sysfile)
+		values(seq_member_photo.nextval, #{mId}, #{oriFile}, #{sysFile})
+	</insert>
+
+
+
+	
+	<update id='update' parameterType='mybatis.MemberVo'>
+		update member set mName=#{mName}, grade = #{grade}, rDate = #{rDate}
+		where  mId=#{mId} and pwd=#{pwd}
+	</update>
+	
+	<!-- 사용 안함 -->
+	<update id='att_update' parameterType='mybatis.MemberPhoto'>
+		update member_photo set oriFile = #{oriFile}, sysFile = #{sysFile}
+		where mId = #{mId}
+	</update>
+	
+
+	<delete id='delete' parameterType = 'mybatis.MemberVo'>
+		delete from member where mId = #{mId} and pwd=#{pwd}
+	</delete>
+	
+	<delete id='att_delete' parameterType='mybatis.MemberPhoto'>
+		delete from member_photo where sysfile = #{sysFile} or mId = #{mId}
+	</delete>
+	
+	<!-- 로그인 -->
+	<select id='login' parameterType='mybatis.MemberVo' resultType='boolean'>
+	    select case 
+	               when count(mId)>0 then 1
+	               else 0
+	           end result
+	    from   member 
+	    where  mId=#{mId} and pwd=#{pwd}      
+	   
+	</select>
+	
+	
+	
+	
+
+</mapper>
+   

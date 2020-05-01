@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+#result {
+	margin: 20px;
+	width: 500px;
+	min-height: 100px;
+	border: 6px solid #81A92E;
+	border-radius: 10px;
+	padding: 30px;
+	box-sizing: border-box;
+	box-shadow: 3px 3px 4px #aaa;
+}
+
+#header {
+	font-size:16pt;
+	font-weight:bold;
+	margin-top : 10px;
+	margin-bottom : 20px;
+}
+
+/* select --------------- */
+
+#board .title{
+	background-color: #81A92E;
+	color: #ffff00;
+}
+#board .title span, #board .list span{
+	display: inline-block;
+}
+
+#board .no { width : 60px; padding-left:20px;}
+#board .subject { width : 500px;}
+#board .id { width : 120px;}
+#board .mDate { width : 120px;}
+#board .hit { width : 50px;}
+
+#board .frm_brd{
+	text-align: right;
+}
+#board .items:hover{
+	background: #DFE4D4;
+}
+#board #paging{
+	border-top : 2px solid #aaa;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom:30px;
+}
+#board #paging input[type=button]{
+	border-radius: 10px;
+	border:1px solid #ccc;
+}
+
+/* insert ---------------------- */
+#board form label{
+	display : inline-block;
+	width : 60px;
+}
+#board form .content{
+	width:100%;
+	height:200px;
+	margin-top:10px;
+}
+#board #attList{
+	min-height : 90px;
+}
+
+#board .here { background: #aaa;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

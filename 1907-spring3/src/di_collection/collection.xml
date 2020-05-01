@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns = "http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+     
+     <bean id='coll' class='di_collection.CollectionTest'>
+     	<property name='list'>
+     		<list>
+     			<value>개나리</value>
+     			<value>진날래</value>
+     			<value>코스모스</value>
+     			<value>장미</value>
+     		</list>
+     	</property>
+     	
+     	<property name='set'>
+     		<set>
+     			<value>송아지</value>
+     			<value>망아지</value>
+     			<value>고양이</value>
+     		</set>
+     	</property>
+     	
+     	<property name='map'>
+     	   	<map>
+     	   		<entry>
+     	   			<key><value>a</value></key>
+     	   			<value>홍길동</value>
+     	   		</entry>
+     	   	
+     	   		<entry>
+     	   			<key><value>b</value></key>
+     	   			<value>김길동</value>
+     	   		</entry>
+
+     	   		<entry>
+     	   			<key><value>c</value></key>
+     	   			<value>박길동</value>
+     	   		</entry>
+     	   	</map>
+     	
+     	</property>
+     	
+     	<property name='props'>
+     		<props>
+     			<prop key='홍길동'>서울</prop>
+     			<prop key='김길동'>인천</prop>
+     			<prop key='이길동'>대구</prop>
+     			<prop key='박길동'>부산</prop>
+     		</props>
+     	</property>
+     	
+     </bean>
+     
+</beans>     

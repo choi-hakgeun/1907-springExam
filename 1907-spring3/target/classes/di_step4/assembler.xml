@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns = "http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+     >
+
+	<bean id="mysql"  class="di_step4.MySql"/>
+	<bean id="mssql"  class="di_step4.MsSql"/>
+	<bean id="oracle" class="di_step4.Oracle"/>
+
+	<bean id="assemble" class="di_step4.Assembler">
+		<constructor-arg ref="mssql"/>
+	</bean>
+	
+	
+	<bean id='mVo' class='di_step4.MemberVo'>
+		<property name='mId'   value='kim C'/>
+		<property name='mName' value='김길동'/>
+	</bean>
+	
+	<!-- di bean example -->
+	<bean id='conn' class='di_step4.MyConnection'>
+		<property name='userName' value='park C'/>
+		<property name='passWord' value='123456'/>
+	</bean>
+	
+	<bean id='dao' class='di_step4.MemberDao'>
+	   <constructor-arg ref='conn'/>
+	</bean>
+	
+
+
+</beans>
